@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculator MVC</title>
+        <style>
+            input.btn {
+                width: 50px;
+                height: 50px;
+            }
+        </style>
+        <script type="text/javascript">
+
+            var viewg;
+            var controllerg;
+            var modelg;
+
+            function displayValue(x){
+                document.getElementById("text").value += x.value;
+            }
+            function clearT(){
+                document.getElementById("text").value = "";
+            }
+
+            class Model {
+                rr;
+                constructor(){
+
+                }
+                calc(xx){
+                    this.rr = eval(xx);
+                    return this.rr;
+                }
+  
+            }
+
+            class View {
+                controller;
+                constructor(){
+                    
+                }
+                addController(controller){
+                    this.controller = controller;
+                }
+
+                displayResult(){
+                    var r = this.controller.findResult();
+                    document.getElementById("text").value = r;
+                    //document.getElementById("text").value = "HELLO";
+                }
+            }
+
+            class Controller {
+                model;
+                view;
+                constructor(){
+                    
+                }
+                addModel(model){
+                    this.model = model;
+                }
+                addView(view){
+                    this.view = view;
+                }
+                findResult(){
+                    var st = document.getElementById("text").value;
+                    var rrr = this.model.calc(st);
+                    return rrr;
+                }
+            }
+
+            function init(){
+                viewg = new View();
+                controllerg = new Controller();
+                modelg = new Model();
+                viewg.addController(controllerg);
+                controllerg.addModel(modelg);
+                controllrg.addView(viewg);
+
+            }
+    
+        </script>
+    </head>
+    <body onload="init();">
+        <table cellspacing="0">
+            <tr><input type="text" id="text" readonly style="width:203px;height:50px;margin-left:0px;"></tr>
+            <tr>
+                <td><input type="button" value="0" class="btn" onclick="displayValue(this);"></td>
+                <td><input type="button" value="1" class="btn" onclick="displayValue(this);"></td>
+                <td><input type="button" value="2" class="btn" onclick="displayValue(this);"></td>
+                <td><input type="button" value="%" class="btn" onclick="displayValue(this);"></td>
+                
+                
+            </tr>
+            <tr>
+                <td><input type="button" value="3" class="btn" onclick="displayValue(this);"></td>
+                <td><input type="button" value="4" class="btn" onclick="displayValue(this);"></td>
+                <td><input type="button" value="5" class="btn" onclick="displayValue(this);"></td>
+                <td><input type="button" value="+" class="btn" onclick="displayValue(this);"></td>
+                
+            </tr>
+            <tr>
+                <td><input type="button" value="6" class="btn" onclick="displayValue(this);"></td>
+                <td><input type="button" value="7" class="btn" onclick="displayValue(this);"></td>
+                <td><input type="button" value="8" class="btn" onclick="displayValue(this);"></td>
+                <td><input type="button" value="/" class="btn" onclick="displayValue(this);"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="9" class="btn" onclick="displayValue(this);"></td>
+                <td><input type="button" value="*" class="btn" onclick="displayValue(this);"></td>
+                <td><input type="button" value="-" class="btn" onclick="displayValue(this);"></td>
+                <td><input type="button" value="=" class="btn" onclick="viewg.displayResult();"></td>
+            </tr>
+            
+        </table>
+            <td><input type="button" value="Clear" style="width:80px; height:20px;" onclick="clearT();"></td>
+        
+    </body>
+</html>
